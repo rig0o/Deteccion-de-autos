@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import time
 from datetime import datetime
 
 
@@ -29,7 +28,7 @@ while True:
     cv2.rectangle(frame,(0,0),(frame.shape[1],100),(0,0,0),-1)
 
     if ret == False:break
-    if cuadro == 3:
+    if cuadro == 5:
         cuadro = 0
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -65,7 +64,7 @@ while True:
     cv2.imshow('frame',frame)
     #cv2.imshow('recorte',fgmask)
 
-    k = cv2.waitKey()&0xFF
+    k = cv2.waitKey(1)&0xFF
     if k == 27:
         break
 cap.release()
