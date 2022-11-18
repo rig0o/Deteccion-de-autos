@@ -53,9 +53,6 @@ while True:
         if cv2.contourArea(cnt) > 380000:
             i = i+1
             print(f'{i}--{cv2.contourArea(cnt)}')
-            #x, y, w, h = cv2.boundingRect(cnt)
-            #cv2.rectangle(frame, (x,y), (x+w, y+h),(0,255,0), 2)
-            #save = frame[y:y+h, x:x+w]
             texto_estado = "Estado: Alerta Movimiento Detectado!"
             cv2.imwrite(f'{path}/plate{datetime.now()}.png',frame)
             color = (0, 0, 255)    
