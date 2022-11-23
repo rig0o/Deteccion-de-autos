@@ -18,20 +18,10 @@ while True:
     if ret == False:break
     cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
     cv2.resizeWindow('frame', 1000, 500)
-    cv2.namedWindow('recorte', cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('recorte', 1000, 500)
 
     #Puntos donde se buscara
-    #area_pts = np.array([[900, 1650],[1580,1650],[1510,2100],[750,2100]])
     area_pts = np.array([[500, 600],[1800,600],[1800,1000],[500,1000]])
-    color = (0, 255, 0)
-
-    # Region
-    cv2.drawContours(frame, [area_pts],-1,color,10)
-    texto_estado = "Estado: No se ha detectado auto"
-    cv2.rectangle(frame,(0,0),(frame.shape[1],100),(0,0,0),-1)
-
-
+    #Frame a gris
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 
@@ -47,21 +37,15 @@ while True:
 
     #Filtra contornes segun el area
     cnts = cv2.findContours(fgmask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
-    path = '/home/rodrigo/Workspace/auto_bueno/output'
+    path = 'img/'
 
     for cnt in cnts:
         if cv2.contourArea(cnt) > 380000:
             i = i+1
             print(f'{i}--{cv2.contourArea(cnt)}')
-            texto_estado = "Estado: Alerta Movimiento Detectado!"
-            cv2.imwrite(f'{path}/plate{datetime.now()}.png',frame)
-            color = (0, 0, 255)    
-
-    #Texto 
-    cv2.putText(frame, texto_estado, (300,90),cv2.FONT_HERSHEY_SIMPLEX,2,color,10)
+            cv2.imwrite(f'{path}/frame{datetime.now()}.png',frame)
 
     cv2.imshow('frame',frame)
-    cv2.imshow('recorte',fgmask)
 
     k = cv2.waitKey()&0xFF
     if k == 27:
